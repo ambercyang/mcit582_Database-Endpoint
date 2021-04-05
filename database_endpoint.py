@@ -57,9 +57,9 @@ def log_message(d):
     #          buy_currency=order['buy_currency'], sell_currency=order['sell_currency'], \
     #          buy_amount=order['buy_amount'], sell_amount=order['sell_amount'] )
     g.session.add(Log(message=order))
-    #g.session.commit()
-    return
-    #pass
+    g.session.commit()
+  
+    pass
 
 """
 ---------------- Endpoints ----------------
@@ -71,7 +71,7 @@ def trade():
     if request.method == "POST":
         content = request.get_json(silent=True)
         print( f"content = {json.dumps(content)}" )
-        columns = [ "sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount","signature"]
+        columns = [ "sender_pk", "receiver_pk", "buy_currency", "sell_currency", "buy_amount", "sell_amount"]
         fields = [ "sig", "payload" ]
         error = False
         for field in fields:
