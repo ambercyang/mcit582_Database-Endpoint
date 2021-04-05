@@ -57,9 +57,9 @@ def log_message(d):
     #          buy_currency=order['buy_currency'], sell_currency=order['sell_currency'], \
     #          buy_amount=order['buy_amount'], sell_amount=order['sell_amount'] )
     g.session.add(Log(message=order))
-    g.session.commit()
-   
-    pass
+    #g.session.commit()
+    return
+    #pass
 
 """
 ---------------- Endpoints ----------------
