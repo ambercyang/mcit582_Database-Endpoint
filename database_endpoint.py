@@ -127,15 +127,15 @@ def order_book():
     #Note that you can access the database session using g.session   
     temp = g.session.query(Order)
     mydict = []
-    for sqlrs in temp.all():
+    for myquery in temp.all():
         order = {}
-        order['buy_currency'] = getattr(sqlrs,'buy_currency')
-        order['sell_currency'] =  getattr(sqlrs,'sell_currency')
-        order['buy_amount'] =  getattr(sqlrs,'buy_amount')
-        order['sell_amount'] =  getattr(sqlrs,'sell_amount')
-        order['sender_pk'] =  getattr(sqlrs,'sender_pk')
-        order['receiver_pk'] =  getattr(sqlrs,'receiver_pk')
-        order['signature'] =  getattr(sqlrs,'signature')
+        order['buy_currency'] = getattr(myquery,'buy_currency')
+        order['sell_currency'] =  getattr(myquery,'sell_currency')
+        order['buy_amount'] =  getattr(myquery,'buy_amount')
+        order['sell_amount'] =  getattr(myquery,'sell_amount')
+        order['sender_pk'] =  getattr(myquery,'sender_pk')
+        order['receiver_pk'] =  getattr(myquery,'receiver_pk')
+        order['signature'] =  getattr(myquery,'signature')
         mydict.append(order)
     result = { 'data': mydict } 
     print(result) 
