@@ -149,6 +149,7 @@ def trade():
         order_obj = Order( sender_pk=order['sender_pk'],receiver_pk=order['receiver_pk'],                          buy_currency=order['buy_currency'], sell_currency=order['sell_currency'],                           buy_amount=order['buy_amount'], sell_amount=order['sell_amount'],signature = order['signature'])
 
         g.session.add(order_obj)
+        g.session.commit()
         return jsonify( True )
 
 
@@ -162,13 +163,9 @@ def trade():
 @app.route('/order_book')
 def order_book():
     #Your code here
-    #Note that you can access the database session using g.session
-    order_obj = Order( sender_pk=order['sender_pk'],receiver_pk=order['receiver_pk'],                       buy_currency=order['buy_currency'], sell_currency=order['sell_currency'],                       buy_amount=order['buy_amount'], sell_amount=order['sell_amount'] )
-
-    
-    
+    #Note that you can access the database session using g.session   
     temp = g.session.query(Order)
-    dict = []
+    mydict = []
     for sqlrs in temp.all():
         order = {}
         order['buy_currency'] = getattr(sqlrs,'buy_currency')
@@ -178,10 +175,9 @@ def order_book():
         order['sender_pk'] =  getattr(sqlrs,'sender_pk')
         order['receiver_pk'] =  getattr(sqlrs,'receiver_pk')
         order['signature'] =  getattr(sqlrs,'signature')
-        dict.append(order)
-    result = { 'data': dict } 
+        mydict.append(order)
+    result = { 'data': mydict } 
     print(result) 
-    return jsonify(result)
     return jsonify(result)
 
 if __name__ == '__main__':
