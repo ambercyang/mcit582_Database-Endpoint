@@ -69,44 +69,6 @@ def log_message(d):
 """
 
 
-# In[5]:
-
-
-def verify():
-    result = False
-    content = request.get_json(silent=True)    
-    sk = content['sig']
-    payload = content['payload']
-    platform = content['payload']['platform']
-    message = json.dumps(payload)
-    pk = payload['pk']
-    
-    #1. Verifying an endpoint for verifying signatures for ethereum
-    if platform == "Ethereum":
-        eth_encoded_msg = eth_account.messages.encode_defunct(text=message) 
-        recovered_pk = eth_account.Account.recover_message(eth_encoded_msg,signature=sk)
-        if(recovered_pk ==pk):
-            result = True
-            print( "Eth sig verifies!" )    
-    
-    #2. Verifying an endpoint for verifying signatures for Algorand
-    elif platform == "Algorand":
-        result = algosdk.util.verify_bytes(message.encode('utf-8'),sk,pk)
-        if(result):
-            print( "Algo sig verifies!" )
-    
-    #3. Check for invalid input
-    else:
-        print("invalid input")
-
-    #Check if signature is valid
-    #result = True #Should only be true if signature validates
-    return jsonify(result)
-
-
-# In[6]:
-
-
 @app.route('/trade', methods=['POST'])
 def trade():
     if request.method == "POST":
